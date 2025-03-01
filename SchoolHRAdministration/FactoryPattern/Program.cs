@@ -1,6 +1,6 @@
-﻿using HRAdminstrationAPI;
+﻿using HRAdminstrationAPI.FactoryPattern;
 
-namespace SchoolHRAdministration
+namespace SchoolHRAdministration.FactoryPattern
 {
 
     internal class Program
@@ -18,7 +18,7 @@ namespace SchoolHRAdministration
 
             Console.WriteLine($"Employee Annual Salary: {employees.Sum(e => e.Salary)}");
             Console.ReadKey();
-            
+
         }
 
         public static void SeedData(List<IEmployee> employees)
@@ -53,7 +53,7 @@ namespace SchoolHRAdministration
                 switch (employeeType)
                 {
                     case EmployeeType.Teacher:
-                        employee = FactoryPattern<IEmployee,Teacher>.GetInstance();
+                        employee = FactoryPattern<IEmployee, Teacher>.GetInstance();
                         break;
                     case EmployeeType.HeadOfDepartment:
                         employee = FactoryPattern<IEmployee, HeadOfDepartment>.GetInstance();
@@ -66,9 +66,9 @@ namespace SchoolHRAdministration
                         break;
                     default:
                         break;
-                }      
-                
-                if(employee is not null)
+                }
+
+                if (employee is not null)
                 {
                     employee.FirstName = firstName;
                     employee.LastName = lastName;
@@ -80,7 +80,7 @@ namespace SchoolHRAdministration
                     throw new NullReferenceException();
                 }
 
-                return employee ;
+                return employee;
 
             }
         }

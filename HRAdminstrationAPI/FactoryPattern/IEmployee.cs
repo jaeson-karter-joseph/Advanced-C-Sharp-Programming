@@ -1,4 +1,4 @@
-﻿namespace HRAdminstrationAPI
+﻿namespace HRAdminstrationAPI.FactoryPattern
 {
     public interface IEmployee
     {

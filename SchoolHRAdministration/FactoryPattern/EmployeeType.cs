@@ -1,4 +1,4 @@
-﻿namespace SchoolHRAdministration
+﻿namespace SchoolHRAdministration.FactoryPattern
 {
     public enum EmployeeType
     {

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRAdminstrationAPI
+namespace HRAdminstrationAPI.FactoryPattern
 {
     public abstract class EmployeeBase : IEmployee
     {
-        public int Id { get ; set ; }
+        public int Id { get; set; }
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
-        public virtual decimal Salary { get ; set ; }
+        public virtual decimal Salary { get; set; }
     }
 }
