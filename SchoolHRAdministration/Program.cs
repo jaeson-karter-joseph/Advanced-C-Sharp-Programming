@@ -25,31 +25,31 @@ namespace SchoolHRAdministration
             #endregion
 
             #region DelegateFunction
-            DelegateBasics.DelegateFunction();
+            //DelegateBasics.DelegateFunction();
 
-            Console.WriteLine("Choose a logging method (1 = Console, 2 = File): ");
-            string choice = Console.ReadLine() ?? "1";
+            //Console.WriteLine("Choose a logging method (1 = Console, 2 = File): ");
+            //string choice = Console.ReadLine() ?? "1";
 
-            LogHandler logHandler = choice switch
-            {
-                "2" => FileLog, // File Logging
-                "3" => (LogHandler)ConsoleLog + FileLog, // Multicast Delegate: Console & File Logging
-                _ => ConsoleLog // Console Logging (Default)
-            };
+            //LogHandler logHandler = choice switch
+            //{
+            //    "2" => FileLog, // File Logging
+            //    "3" => (LogHandler)ConsoleLog + FileLog, // Multicast Delegate: Console & File Logging
+            //    _ => ConsoleLog // Console Logging (Default)
+            //};
 
-            Logger logger = new(logHandler);
+            //Logger logger = new(logHandler);
 
-            logger.Log("Application started.");
-            logger.Log("User logged in.");
-            logger.Log("Error occurred: NullReferenceException");
+            //logger.Log("Application started.");
+            //logger.Log("User logged in.");
+            //logger.Log("Error occurred: NullReferenceException");
 
-            Console.WriteLine("Logging completed.");
+            //Console.WriteLine("Logging completed.");
 
-            PredicateExample predicateExample = new(employees);
-            predicateExample.PrintEmployees();
+            //PredicateExample predicateExample = new(employees);
+            //predicateExample.PrintEmployees();
 
 
-
+            ThreadSafeAysncCallback.RunWork().GetAwaiter().GetResult();
             #endregion
 
             Console.ReadKey();
