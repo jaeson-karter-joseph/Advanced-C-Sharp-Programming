@@ -1,6 +1,7 @@
 ﻿using HRAdminstrationAPI.FactoryPattern;
 using SchoolHRAdministration.DelegateFunction;
 using SchoolHRAdministration.FactoryPattern;
+using static SchoolHRAdministration.DelegateFunction.EnterpriseLoggingDemo;
 
 namespace SchoolHRAdministration
 {
@@ -24,7 +25,24 @@ namespace SchoolHRAdministration
             #endregion
 
             #region DelegateFunction
-            DelegateBasics.DelegateFunction(); 
+            DelegateBasics.DelegateFunction();
+            Console.WriteLine("Choose a logging method (1 = Console, 2 = File): ");
+            string choice = Console.ReadLine() ?? "1";
+
+            LogHandler logHandler = choice switch
+            {
+                "2" => FileLog, // File Logging
+                "3" => (LogHandler)ConsoleLog + FileLog, // Multicast Delegate: Console & File Logging
+                _ => ConsoleLog // Console Logging (Default)
+            };
+
+            Logger logger = new(logHandler);
+
+            logger.Log("Application started.");
+            logger.Log("User logged in.");
+            logger.Log("Error occurred: NullReferenceException");
+
+            Console.WriteLine("Logging completed.");
             #endregion
 
             Console.ReadKey();

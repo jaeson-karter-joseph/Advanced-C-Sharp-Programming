@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HRAdminstrationAPI.FactoryPattern
+﻿namespace HRAdminstrationAPI.FactoryPattern
 {
     public static class FactoryPattern<K, T> where T : class, K, new()
     {

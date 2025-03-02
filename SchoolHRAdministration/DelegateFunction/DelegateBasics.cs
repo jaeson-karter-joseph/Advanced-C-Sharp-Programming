@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SchoolHRAdministration.DelegateFunction
+﻿namespace SchoolHRAdministration.DelegateFunction
 {
     public delegate void GreetDelegate(string name);
     public delegate void NotifyDelegate();
     public delegate int MathOperation(int a, int b);
 
     public delegate void ThresholdReachedEventHandler(object sender, ThresholdReachedEventArgs e);
- 
+
     public class ThresholdReachedEventArgs : EventArgs
     {
         public int Threshold { get; set; }
