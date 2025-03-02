@@ -26,6 +26,7 @@ namespace SchoolHRAdministration
 
             #region DelegateFunction
             DelegateBasics.DelegateFunction();
+
             Console.WriteLine("Choose a logging method (1 = Console, 2 = File): ");
             string choice = Console.ReadLine() ?? "1";
 
@@ -43,6 +44,12 @@ namespace SchoolHRAdministration
             logger.Log("Error occurred: NullReferenceException");
 
             Console.WriteLine("Logging completed.");
+
+            PredicateExample predicateExample = new(employees);
+            predicateExample.PrintEmployees();
+
+
+
             #endregion
 
             Console.ReadKey();
