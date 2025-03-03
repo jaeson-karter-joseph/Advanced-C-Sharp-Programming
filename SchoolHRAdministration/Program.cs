@@ -5,6 +5,7 @@ using SchoolHRAdministration.Events.Logger;
 using SchoolHRAdministration.FactoryPattern;
 using static SchoolHRAdministration.DelegateFunction.EnterpriseLoggingDemo;
 using static SchoolHRAdministration.Events.BasicPubSub;
+using static SchoolHRAdministration.Generics.Generics;
 
 namespace SchoolHRAdministration
 {
@@ -14,12 +15,23 @@ namespace SchoolHRAdministration
 
         private static void Main(string[] args)
         {
-            List<IEmployee> employees = FactoryPattern();
-            DelegateFunctions(employees);
-            Events(employees);
+            //List<IEmployee> employees = FactoryPattern();
+            //DelegateFunctions(employees);
+            //Events(employees);
+
+            Generics();
 
             Console.ReadKey();
 
+        }
+
+        private static void Generics()
+        {
+            var loggerService = new LoggerService<FileLogger>(new FileLogger());
+            loggerService.WriteLog("Logging to file...");
+
+            var consoleLoggerService = new LoggerService<ConsoleLogger>(new ConsoleLogger());
+            consoleLoggerService.WriteLog("Logging to console...");
         }
 
         private static void Events(List<IEmployee> employees)
