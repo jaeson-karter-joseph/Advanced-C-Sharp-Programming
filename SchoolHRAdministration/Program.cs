@@ -1,6 +1,7 @@
 ﻿using HRAdminstrationAPI.FactoryPattern;
 using SchoolHRAdministration.DelegateFunction;
 using SchoolHRAdministration.Events;
+using SchoolHRAdministration.Events.Logger;
 using SchoolHRAdministration.FactoryPattern;
 using static SchoolHRAdministration.DelegateFunction.EnterpriseLoggingDemo;
 using static SchoolHRAdministration.Events.BasicPubSub;
@@ -14,18 +15,34 @@ namespace SchoolHRAdministration
         private static void Main(string[] args)
         {
             List<IEmployee> employees = FactoryPattern();
-            //DelegateFunctions(employees);
+            DelegateFunctions(employees);
+            Events(employees);
 
+            Console.ReadKey();
+
+        }
+
+        private static void Events(List<IEmployee> employees)
+        {
             Publisher publisher = new();
             Subcriber subcriber = new();
 
             subcriber.Subcribe(publisher);
             publisher.TriggerEvent(employees);
 
+            OrderProcessor orderProcessor = new();
+            EmailService emailService = new();
+            emailService.Subcribe(orderProcessor);
+            orderProcessor.ProcessOrder(new OrderEvents("1", 1234));
 
+            AtmMachine machine = new();
+            BankLogger bankLogger = new();
+            SmsNotification smsNotification = new();
 
-            Console.ReadKey();
+            bankLogger.Subcribe(machine);
+            smsNotification.Subcribe(machine);
 
+            machine.WithdrawMoney("123-456-789", 250.00);
         }
 
         private static List<IEmployee> FactoryPattern()
