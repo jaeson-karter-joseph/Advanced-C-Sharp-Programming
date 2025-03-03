@@ -1,7 +1,9 @@
 ﻿using HRAdminstrationAPI.FactoryPattern;
 using SchoolHRAdministration.DelegateFunction;
+using SchoolHRAdministration.Events;
 using SchoolHRAdministration.FactoryPattern;
 using static SchoolHRAdministration.DelegateFunction.EnterpriseLoggingDemo;
+using static SchoolHRAdministration.Events.BasicPubSub;
 
 namespace SchoolHRAdministration
 {
@@ -10,6 +12,23 @@ namespace SchoolHRAdministration
         delegate void LogDel(string text);
 
         private static void Main(string[] args)
+        {
+            List<IEmployee> employees = FactoryPattern();
+            //DelegateFunctions(employees);
+
+            Publisher publisher = new();
+            Subcriber subcriber = new();
+
+            subcriber.Subcribe(publisher);
+            publisher.TriggerEvent(employees);
+
+
+
+            Console.ReadKey();
+
+        }
+
+        private static List<IEmployee> FactoryPattern()
         {
             #region FactoryPattern
             List<IEmployee> employees = [];
@@ -23,42 +42,38 @@ namespace SchoolHRAdministration
 
             Console.WriteLine($"Employee Annual Salary: {employees.Sum(e => e.Salary)}");
             #endregion
+            return employees;
+        }
 
+        private static void DelegateFunctions(List<IEmployee> employees)
+        {
             #region DelegateFunction
-            //DelegateBasics.DelegateFunction();
+            DelegateBasics.DelegateFunction();
 
-            //Console.WriteLine("Choose a logging method (1 = Console, 2 = File): ");
-            //string choice = Console.ReadLine() ?? "1";
+            Console.WriteLine("Choose a logging method (1 = Console, 2 = File): ");
+            string choice = Console.ReadLine() ?? "1";
 
-            //LogHandler logHandler = choice switch
-            //{
-            //    "2" => FileLog, // File Logging
-            //    "3" => (LogHandler)ConsoleLog + FileLog, // Multicast Delegate: Console & File Logging
-            //    _ => ConsoleLog // Console Logging (Default)
-            //};
+            LogHandler logHandler = choice switch
+            {
+                "2" => FileLog, // File Logging
+                "3" => (LogHandler)ConsoleLog + FileLog, // Multicast Delegate: Console & File Logging
+                _ => ConsoleLog // Console Logging (Default)
+            };
 
-            //Logger logger = new(logHandler);
+            Logger logger = new(logHandler);
 
-            //logger.Log("Application started.");
-            //logger.Log("User logged in.");
-            //logger.Log("Error occurred: NullReferenceException");
+            logger.Log("Application started.");
+            logger.Log("User logged in.");
+            logger.Log("Error occurred: NullReferenceException");
 
-            //Console.WriteLine("Logging completed.");
+            Console.WriteLine("Logging completed.");
 
-            //PredicateExample predicateExample = new(employees);
-            //predicateExample.PrintEmployees();
+            PredicateExample predicateExample = new(employees);
+            predicateExample.PrintEmployees();
 
 
             ThreadSafeAysncCallback.RunWork().GetAwaiter().GetResult();
             #endregion
-
-            Console.ReadKey();
-
-        }
-
-        static void LogTextToScreen(string text)
-        {
-            Console.WriteLine($"{DateTime.Now} : {text}");
         }
 
         public static void SeedData(List<IEmployee> employees)

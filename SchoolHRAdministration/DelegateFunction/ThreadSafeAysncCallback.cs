@@ -29,12 +29,20 @@ namespace SchoolHRAdministration.DelegateFunction
             Console.WriteLine("Main thread continues...");
         }
 
+        public static async Task Log(string message)
+        {
+            CallBackDelegate callBackDelegate = CallbackMethod1;
+            callBackDelegate += CallbackMethod2;
+
+            await Task.Run(() => ProcessDataAsync(message, callBackDelegate));
+        }
+
         public static async Task ProcessDataAsync(string data, CallBackDelegate callBackDelegate)
         {
             try
             {
                 Console.WriteLine($"Processing {data}...");
-                await Task.Delay(3000);
+                await Task.Delay(500);
                 lock(lockObject)
                 {
                     Console.WriteLine($"{data} processed successfully.");
